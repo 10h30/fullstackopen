@@ -30,15 +30,16 @@ const App = () => {
     setPoints(newpoints)
   }
 
-  const Best = (props) => {
+  const BestNote = (props) => {
     const best = props.data
     const mostvote = Math.max(...best)
     const index = best.indexOf(mostvote);
+    
     return (
       <div>
       <h2>Anecdote with most votes</h2>
-        <p>{props.notes[index]}</p>
-        <span>has {mostvote} votes</span>
+        {mostvote >0 && <div><p>{props.notes[index]}</p>
+        <span>has {mostvote} votes</span></div>}
       </div>
     )
   }
@@ -51,8 +52,7 @@ const App = () => {
         <button onClick={setVote}>vote</button><button onClick={setRandom}>Next Anecdote</button>
       </div>
       
-        <Best data={points} notes={anecdotes}/>
-
+      <BestNote data={points} notes={anecdotes}/>
       
     </div>
   )
