@@ -18,22 +18,23 @@ const App = () => {
         <div>
           <h1>Statistic</h1>
           {all > 0 &&
-            <div>
+            <table>
+              <tbody>
               <StatisticLine text="Good" value ={good} />
               <StatisticLine text="Neutral" value ={neutral} />
               <StatisticLine text="Bad" value ={bad} />
               <StatisticLine text="All" value ={all} />
               <StatisticLine text="Average" value ={avg} />
               <StatisticLine text="Positive" value ={positive} />
-
-            </div>
+              </tbody>
+            </table>
           }
           {all === 0 && "No feedback given"}
         </div>
       )
   }
 
-  const StatisticLine = (props) => <p>{props.text}: {props.value}</p>
+  const StatisticLine = (props) => <tr><td>{props.text}</td><td>{props.value}</td></tr>
 
   const Button = (props) => {
     return (
