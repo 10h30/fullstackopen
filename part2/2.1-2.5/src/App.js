@@ -65,9 +65,10 @@ const Part = (props) => {
   )
 }
 
-const Total = (props) => {
+const Total = ({part}) => {
+  const total = part.reduce((sum, p) => sum + p.exercises, 0)
   return (
-    <p><strong>Total of exercises {props.part[0].exercises + props.part[1].exercises + props.part[2].exercises + props.part[3].exercises}</strong></p>
+    <p><strong>Total of exercises {total}</strong></p>
   )
 }
 
