@@ -33,6 +33,7 @@ const App = () => {
           'Too many matches, specific another filter' : 
             filtered.map(item => <p key={item.alpha2Code}>{item.name}</p>)
       }
+
       
     </div>
   )
