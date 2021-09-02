@@ -20,16 +20,16 @@ const App = () => {
 
   useEffect(() => {
     console.log(ResultList)
-    if (ResultList.length > 0 ) {
-      const capital = ResultList[0].capital
-      const apistring = `http://api.weatherstack.com/current?access_key=9482b8f61c984f8e1988759e020d133e&query=${capital}`
+    if (ResultList.length === 1 ) {
+      const capital = ResultList[0].capital.replace(/\s/g, '+')
+      console.log(capital)
+      const apistring = `http://wttr.in/${capital}?format=j1`
       console.log(capital, apistring)
       axios
         .get(apistring)
         .then(response => {
         setWeatherdata(response.data)
       })
-      console.log(WeatherData)
     }
     }, [ResultList])
   

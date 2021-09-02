@@ -1,13 +1,19 @@
 import React from 'react'
 
 const Weather = ({weather,capital}) => {
-    console.log(weather)
-    
+    const {current_condition} = weather
+    const temperature = current_condition[0].temp_C
+    const windspeed = current_condition[0].windspeedKmph
+    const winddirection = current_condition[0].winddir16Point
     return (
         <div>
-            <p>Temperature: {weather.current.temperature} Celcius</p>
-            <img src={weather.current.weather_icons} alt="Weather" />
-            <p>Wind: {weather.current.wind_speed} mph {weather.current.wind_degree} {weather.current.wind_dir}</p>
+            <h2>Weather in {capital}</h2>
+            { weather &&
+                <div>
+                <p>Temperature: {temperature} Celcius</p>
+                <p>Wind: {windspeed} km/h, Direction {winddirection}</p>
+                </div>
+                }
         </div>
     )
 }

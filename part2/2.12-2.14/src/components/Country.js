@@ -31,7 +31,8 @@ const CountryLongList = ({data, onClick,weather}) => {
     );
 }
 const CountryDetail = ({data,weather}) => {
-    console.log(weather)
+    console.log("Data", data)
+    console.log("Length", data.length)
     return (
         <div>
             <h2>{data.name}</h2>
