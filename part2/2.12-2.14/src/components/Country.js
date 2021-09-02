@@ -1,26 +1,36 @@
 import React from 'react';
 
-const Country = (props) => {
-    const filtered = props.data
+const Country = ({data,onClick}) => {
+    const list = data.length
+    const clickHandler = (index) => {
+        onClick(index)
+    }
     return (
         <div>
-            {filtered.length > 10 ? 
-          'Too many matches, specific another filter' : filtered.length !== 1 ?
-            filtered.map(item => <CountryLongList key={item.alpha2Code} data={item}/>): 
-            filtered.map(item => <CountryDetail key={item.alpha2Code} data={item}/>)}
+            {list > 10 ? 'Too many matches, specific another filter' :
+            list > 1  ? data.map((item, index) => <CountryLongList key={item.alpha2Code} data={item} onClick={() => clickHandler(index)}/>) :
+            data.map(item => <CountryDetail key={item.alpha2Code} data={item}/>)
+            }
         </div>
         
     )
 }
-const CountryLongList = ({data}) => {
+const CountryLongList = ({data, onClick}) => {
+    const show = data.Show
+    console.log(show)
     return (
-        <div>
-            <p>{data.name}</p>
-        </div>
-    )
+      <div>
+        <p>
+          <span>{data.name}</span>
+          <button onClick={onClick}>
+            {show === false ? "Show" : "Hide"}
+          </button>
+          {show === true && <CountryDetail key={data.alpha2Code} data={data}/>}
+        </p>
+      </div>
+    );
 }
 const CountryDetail = ({data}) => {
-    console.log(data)
     return (
         <div>
             <h2>{data.name}</h2>

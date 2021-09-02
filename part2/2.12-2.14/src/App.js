@@ -7,10 +7,7 @@ const App = () => {
   
   const [newSearch, setNewSerach] = useState('')
   const [CountryList, setCountryList] = useState([])
-
-  const handleSearchChange  =(event) => {
-    setNewSerach(event.target.value)
-  }
+  const [ResultList, setResultList] = useState([])
 
   useEffect(() => {
     axios
@@ -20,15 +17,28 @@ const App = () => {
     })
   }, [])
 
- 
-  const filtered = CountryList.filter(country => country.name.toLowerCase().includes(newSearch.toLowerCase()))
-  console.log(newSearch.toLowerCase())
+  const clickHandler = (index) => {
+    console.log(index)
+    const newresult = ResultList
+    newresult[index].Show = !newresult[index].Show
+    setResultList([...newresult])
+  }
+  
+  const handleSearchChange = (event) => {
+    setNewSerach(event.target.value)
+  }
+
+  useEffect(() => {
+    const sfilter = CountryList.filter(country => country.name.toLowerCase().includes(newSearch.toLowerCase()))
+    const filter = sfilter.map(item => ({...item,Show:false}))
+    setResultList(filter)
+  }, [newSearch, CountryList])
+
   return (
     <div>
       <h2>Country</h2>
       <Filter value={newSearch} onChange={handleSearchChange} />
-      <Country data={filtered} />
-      
+      <Country data={ResultList} onClick={clickHandler}/>
     </div>
   )
 }
