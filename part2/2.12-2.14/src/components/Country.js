@@ -12,6 +12,7 @@ const Country = ({data,onClick,weather}) => {
             list > 1  ? data.map((item, index) => <CountryLongList key={item.alpha2Code} data={item} onClick={() => clickHandler(index)} weather={weather}/>) :
             data.map(item => <CountryDetail key={item.alpha2Code} data={item} weather={weather}/>)
             }
+            
         </div>
         
     )
@@ -31,8 +32,6 @@ const CountryLongList = ({data, onClick,weather}) => {
     );
 }
 const CountryDetail = ({data,weather}) => {
-    console.log("Data", data)
-    console.log("Length", data.length)
     return (
         <div>
             <h2>{data.name}</h2>
@@ -47,7 +46,7 @@ const CountryDetail = ({data,weather}) => {
             {data.languages.map(item =><li key={item.name}>{item.name}</li>)}
             </ul>
             <img src={data.flag} alt={data.name} width="200" />
-            <Weather weather={weather} capital={data.capital} />
+            {weather.length === 0 ? "" : <Weather weather={weather} capital={data.capital} />}
         </div>
     )
 }

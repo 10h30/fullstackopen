@@ -1,10 +1,12 @@
 import React from 'react'
 
 const Weather = ({weather,capital}) => {
+
+    console.log("Weather:", weather)
     const {current_condition} = weather
-    const temperature = current_condition[0].temp_C
-    const windspeed = current_condition[0].windspeedKmph
-    const winddirection = current_condition[0].winddir16Point
+    const temperature = current_condition[0].temp_C || ''
+    const windspeed = current_condition[0].windspeedKmph || ''
+    const winddirection = current_condition[0].winddir16Point || ''
     return (
         <div>
             <h2>Weather in {capital}</h2>

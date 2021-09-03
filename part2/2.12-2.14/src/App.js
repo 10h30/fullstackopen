@@ -9,7 +9,7 @@ const App = () => {
   const [CountryList, setCountryList] = useState([])
   const [ResultList, setResultList] = useState([])
   const [WeatherData, setWeatherdata] = useState([])
-
+  console.log(WeatherData)
   useEffect(() => {
     axios
       .get('https://restcountries.eu/rest/v2/all')
@@ -19,7 +19,6 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    console.log(ResultList)
     if (ResultList.length === 1 ) {
       const capital = ResultList[0].capital.replace(/\s/g, '+')
       console.log(capital)
