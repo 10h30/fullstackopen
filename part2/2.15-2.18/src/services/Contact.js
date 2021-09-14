@@ -14,6 +14,10 @@ const updateContact = newPerson => {
     return contact.then(response => response.data)
 }
 
+const deleteContact = id => {
+    const contact = axios.delete(`${baseUrl}/${id}`)
+    return contact.then(response => response.data)
+}
    
 /*
     const update = (id, newObject) => {
@@ -21,7 +25,7 @@ const updateContact = newPerson => {
     }*/
 
 const Contact = {
-    getContact, updateContact
+    getContact, updateContact, deleteContact
 }
 
 export default Contact

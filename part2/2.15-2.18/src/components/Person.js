@@ -1,9 +1,15 @@
 import React from 'react'
 
-const Person = ({data}) => {
+const Person = ({data,click}) => {
+    const clickHandler = (person) => {
+        const result = window.confirm("Do you want to continue?")
+        if (result) {
+            click(person.id)
+        }
+    }
     return (
         <ul>
-            {data.map(person => <li key={person.name}>{person.name}: {person.number}</li>)}
+            {data.map(person => <li key={person.name}><span>{person.name}: {person.number}</span><span><button onClick={() => clickHandler(person)}>Delete</button></span></li>)}
         </ul>
     )
 }

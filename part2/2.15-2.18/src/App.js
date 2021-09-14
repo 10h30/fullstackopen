@@ -64,6 +64,15 @@ const App = () => {
 
   const search = persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
 
+  const deleteHandler = (id) => {
+    Contact
+    .deleteContact(id)
+    .then(response => {
+      console.log(`${id} deleted`)
+      setPersons(persons.filter(n => n.id !== id))
+    })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -73,7 +82,7 @@ const App = () => {
       <PersonForm onSubmit={submitChange} name={newName} number={newNumber} handleNumberChange={handleNumberChange} handleNameChange={handleNameChange}/>
       
       <h2>Numbers</h2>
-      <Person data={search} />
+      <Person data={search} click={deleteHandler} />
       
     </div>
   )
