@@ -19,7 +19,7 @@ const App = () => {
       })
   }, [])
 
-  //console.log(persons)
+  console.log(persons)
 
   const handleNameChange = (event) => {
     //console.log(event.target.value)
@@ -38,24 +38,41 @@ const App = () => {
   
   const submitChange = (event) => {
     event.preventDefault()
+  
+    // Check if newName already added to phonebook or not
+    const check = persons.filter(person => person.name === newName )
+    const id = check.length === 0 ?  persons[persons.length - 1].id + 1 : check[0].id
+
     const newPerson = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1
+      id: id
     }
-
-    // Check if newName already added to phonebook or not
-    const check = persons.filter(person => person.name === newName )
-    check.length === 0 ? setPersons(persons.concat(newPerson)) : alert(`${newName} is already added to phonebook`)
 
     if (check.length === 0) {
-      Contact
-        .updateContact(newPerson)
-        .then(response => {
-            console.log(response)
-        })
+      if ((newPerson.name === "") || (newPerson.number === "")) {
+        alert(`Name or number cannot be empty`)
+      }
+      else {
+        Contact
+          .addContact(newPerson)
+          .then(response => {
+              console.log(response)
+          })
+        setPersons(persons.concat(newPerson))
+      }
     }
-    
+    else {
+      const result = window.confirm(`${newName} is already added to phonebook. Replace with new Number?`)
+      console.log(id)
+      if (result) {
+        Contact
+          .updateContact(id, newPerson)
+          .then(response => {
+            setPersons(persons.map(person => person.id !== id ? person : response))
+          })
+      }
+    }
 
     setNewNumber('')
     setNewName('')

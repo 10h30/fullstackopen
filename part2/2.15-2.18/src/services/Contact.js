@@ -9,7 +9,7 @@ const getContact = () => {
 }
 
  
-const updateContact = newPerson => {
+const addContact = newPerson => {
     const contact = axios.post(baseUrl, newPerson)
     return contact.then(response => response.data)
 }
@@ -18,14 +18,15 @@ const deleteContact = id => {
     const contact = axios.delete(`${baseUrl}/${id}`)
     return contact.then(response => response.data)
 }
-   
-/*
-    const update = (id, newObject) => {
-        return axios.put(`${baseUrl}/${id}`, newObject)
-    }*/
+
+const updateContact = (id, newPerson) => {
+    const contact = axios.put(`${baseUrl}/${id}`, newPerson)
+    return contact.then(response => response.data)
+}
+
 
 const Contact = {
-    getContact, updateContact, deleteContact
+    getContact, addContact, deleteContact, updateContact
 }
 
 export default Contact

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Person = ({data,click}) => {
     const clickHandler = (person) => {
-        const result = window.confirm("Do you want to continue?")
+        const result = window.confirm(`Do you want to delete ${person.name}?`)
         if (result) {
             click(person.id)
         }
