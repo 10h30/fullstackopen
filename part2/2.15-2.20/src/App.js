@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 //import axios from 'axios'
+import './index.css'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Person from './components/Person'
 import Contact from './services/Contact'
+import Notification from './components/Notification'
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
+  const [ errorMessage, setErrorMessage] = useState(null)
+  const [ errorType, setErrorType ] = useState(null)
+
 
   useEffect(() => {
       Contact
@@ -19,7 +24,6 @@ const App = () => {
       })
   }, [])
 
-  console.log(persons)
 
   const handleNameChange = (event) => {
     //console.log(event.target.value)
@@ -57,7 +61,12 @@ const App = () => {
         Contact
           .addContact(newPerson)
           .then(response => {
-              console.log(response)
+              setErrorMessage(`Added ${response.name}`)
+              setErrorType ('notification')
+              setTimeout(() => {
+                setErrorMessage(null)
+                setErrorType (null)
+              }, 5000)
           })
         setPersons(persons.concat(newPerson))
       }
@@ -93,6 +102,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} type={errorType} />
       <Filter value={newSearch} onChange={handleSearchChange} />
       
       <h2>Add new contact</h2>
