@@ -74,11 +74,23 @@ const App = () => {
     else {
       const result = window.confirm(`${newName} is already added to phonebook. Replace with new Number?`)
       console.log(id)
+      const person = persons.find(n => n.id === id)
       if (result) {
         Contact
           .updateContact(id, newPerson)
           .then(response => {
             setPersons(persons.map(person => person.id !== id ? person : response))
+          })
+          .catch(error => {
+            setErrorMessage(
+              `Information of ${person.name} was already removed from server`
+            )
+            setErrorType('error')
+            setTimeout(() => {
+              setErrorMessage(null)
+              setErrorType (null)
+            }, 5000)
+            setPersons(persons.filter(n => n.id !== id))
           })
       }
     }
